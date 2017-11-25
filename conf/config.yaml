@@ -1,0 +1,12 @@
+kafka:
+  brokers:
+    - worker-001.dev.priv.aws.bigdata-api.com:9092
+    - worker-002.dev.priv.aws.bigdata-api.com:9092
+    - worker-003.dev.priv.aws.bigdata-api.com:9092
+  topic: test-asyd
+  producer:
+    sleep: 1
+  consumer:
+    group_id: test-asyd
+    instances: 3
+    sleep: 0
