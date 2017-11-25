@@ -1,8 +1,8 @@
 kafka:
   brokers:
-    - worker-001.dev.priv.aws.bigdata-api.com:9092
-    - worker-002.dev.priv.aws.bigdata-api.com:9092
-    - worker-003.dev.priv.aws.bigdata-api.com:9092
+    - 172.21.1.164:9092
+    - 172.21.1.84:9092
+    - 172.21.1.8:9092
   topic: test-asyd
   producer:
     sleep: 1
