@@ -4,7 +4,7 @@ from common import config_load
 import datetime
 
 
-async def producer():
+async def producer(instance):
     config = config_load()
     kafka_producer = AIOKafkaProducer(
         loop=loop,
@@ -17,15 +17,17 @@ async def producer():
             count += 1
             await kafka_producer.send_and_wait(config['kafka']['topic'],
                                                value=b"Hello world",
-                                               # key=b",".join([count, datetime.datetime.now()]),
-                                               # value=b"Hello world {}".__format__(datetime.datetime.now)
+                                               key=",".join([str(count), str(datetime.datetime.now())]).encode('UTF-8'),
                                                )
-            print("Send messaged: {}".format(count))
+            print("Send messaged: {}, from instance: {}".format(count, instance))
             await asyncio.sleep(config['kafka']['producer']['sleep'])
     finally:
         await kafka_producer.stop()
 
 
 if __name__ == '__main__':
+    config = config_load()
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(producer())
+
+    loop.run_until_complete(
+        asyncio.gather(*[producer(instance) for instance in range(config['kafka']['producer']['instances'])]))

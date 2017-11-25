@@ -11,6 +11,7 @@ async def consumer(instance):
         bootstrap_servers=config['kafka']['brokers'],
         group_id=config['kafka']['consumer']['group_id'],
         auto_commit_interval_ms=1000,
+        auto_offset_reset='earliest'
     )
     await kafka_consumer.start()
     try:

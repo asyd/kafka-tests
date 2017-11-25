@@ -5,8 +5,9 @@ kafka:
     - 172.21.1.8:9092
   topic: test-asyd
   producer:
-    sleep: 1
+    sleep: 0
+    instances: 5
   consumer:
     group_id: test-asyd
-    instances: 3
-    sleep: 0
+    instances: 10
+    sleep: 0.5
